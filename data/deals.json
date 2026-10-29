@@ -1,0 +1,50 @@
+[
+  {
+    "id": "TARGET-A",
+    "name": "FinCore — платёжная платформа",
+    "sector": "Финтех",
+    "description": "Платёжная инфраструктура для корпоративных клиентов; API и расчётные сервисы.",
+    "fcf_ev": 0.14,
+    "wacc": 0.11,
+    "vector_distance": 0.8,
+    "sigma": 1.5,
+    "graph_synergy": 0.86,
+    "integration_risk": 0.24,
+    "alpha": 0.45,
+    "beta": 0.55,
+    "gamma": 1.8,
+    "scenario": "bolt_on"
+  },
+  {
+    "id": "TARGET-B",
+    "name": "NovaAI — AI-платформа",
+    "sector": "Искусственный интеллект",
+    "description": "Технологическая платформа анализа документов и интеллектуальной автоматизации.",
+    "fcf_ev": 0.025,
+    "wacc": 0.12,
+    "vector_distance": 0.45,
+    "sigma": 1.4,
+    "graph_synergy": 0.38,
+    "integration_risk": 0.2,
+    "alpha": 0.8,
+    "beta": 0.2,
+    "gamma": 1.2,
+    "scenario": "venture"
+  },
+  {
+    "id": "TARGET-C",
+    "name": "LegacyPay — процессинговый актив",
+    "sector": "Платежи",
+    "description": "Зрелая процессинговая платформа с большой клиентской базой и сложным технологическим контуром.",
+    "fcf_ev": 0.18,
+    "wacc": 0.12,
+    "vector_distance": 1.1,
+    "sigma": 1.3,
+    "graph_synergy": 0.74,
+    "integration_risk": 0.82,
+    "alpha": 0.3,
+    "beta": 0.7,
+    "gamma": 2.2,
+    "scenario": "risk"
+  }
+]
