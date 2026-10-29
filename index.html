@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Интерактивная демонстрация векторного M&A-скоринга: финансовый компонент, новизна, синергия и интеграционный риск.">
+<title>M&A Vector Scoring — интерактивный MVP</title>
+<style>
+:root{--bg:#f4f6fa;--paper:#fff;--ink:#182235;--muted:#667287;--line:#dce3ed;--blue:#2457a6;--bluebg:#eaf1ff;--green:#176b48;--greenbg:#e8f5ee;--amber:#8b5b0b;--amberbg:#fff3d9;--red:#9f3434;--redbg:#fff0ef}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select{font:inherit}.wrap{max-width:1200px;margin:auto;padding:28px 22px 55px}.head{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}.eyebrow{font-size:.76rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--blue)}.pill{border:1px solid var(--line);background:var(--paper);padding:6px 11px;border-radius:99px;font-size:.8rem;color:var(--muted)}h1{font-size:clamp(2rem,4.5vw,3.3rem);line-height:1.08;letter-spacing:-.04em;max-width:850px;margin:16px 0 12px}h2{font-size:1.2rem;margin:0 0 12px}h3{font-size:1rem;margin:0 0 6px}.lead{font-size:1.05rem;color:var(--muted);max-width:850px}.scenarios{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:25px 0 17px}.scenario{background:var(--paper);border:1px solid var(--line);border-radius:13px;text-align:left;padding:16px;cursor:pointer;min-height:145px;color:var(--ink)}.scenario:hover,.scenario:focus-visible{border-color:var(--blue);outline:3px solid #2457a622}.scenario.active{border:2px solid var(--blue);padding:15px;background:var(--bluebg)}.scenario .n{color:var(--blue);font-size:.75rem;font-weight:800;letter-spacing:.08em}.scenario strong{display:block;margin:8px 0 6px;line-height:1.3}.scenario small{color:var(--muted);font-size:.82rem;line-height:1.4;display:block}.layout{display:grid;grid-template-columns:310px minmax(0,1fr);gap:15px;align-items:start}.panel{background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:20px;min-width:0}.field{margin:17px 0}.field label{font-weight:700;display:flex;justify-content:space-between;gap:10px;margin-bottom:7px;font-size:.9rem}.field output{color:var(--blue);font-variant-numeric:tabular-nums}input[type=range]{width:100%;accent-color:var(--blue)}select{width:100%;border:1px solid #cbd5e2;border-radius:9px;padding:10px;background:#fff;color:var(--ink)}.hint{color:var(--muted);font-size:.83rem}.btn{border:0;border-radius:9px;background:var(--blue);color:#fff;font-weight:750;padding:11px 14px;cursor:pointer;width:100%}.btn:hover{filter:brightness(.94)}.scenarioNote{padding:13px 15px;border-left:4px solid var(--blue);background:#f4f7ff;border-radius:0 9px 9px 0;margin:12px 0 17px}.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0}.metric{border:1px solid var(--line);border-radius:11px;padding:13px;min-width:0}.metric .label{font-size:.79rem;color:var(--muted);min-height:38px}.metric .value{font-size:1.5rem;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.metric .sub{font-size:.78rem;color:var(--muted)}.scoreline{display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap}.scorebig{font-size:2rem;font-weight:850;font-variant-numeric:tabular-nums}.status{display:inline-block;border-radius:99px;padding:5px 10px;font-size:.8rem;font-weight:750}.status.positive{background:var(--greenbg);color:var(--green)}.status.negative{background:var(--redbg);color:var(--red)}.status.neutral{background:var(--amberbg);color:var(--amber)}.barlist{display:grid;gap:12px;margin:17px 0}.barrow{display:grid;grid-template-columns:minmax(120px,180px) 1fr 60px;gap:12px;align-items:center;font-size:.87rem}.track{height:10px;background:#edf0f5;border-radius:99px;overflow:hidden}.fill{height:100%;width:0;background:var(--blue);border-radius:99px;transition:width .2s}.fill.risk{background:#b76a28}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:15px}.subpanel{border:1px solid var(--line);border-radius:12px;padding:15px;min-width:0}.posterior{font-size:1.6rem;font-weight:850;font-variant-numeric:tabular-nums}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.86rem}th,td{text-align:left;padding:10px 9px;border-bottom:1px solid var(--line);white-space:nowrap}th{color:var(--muted);font-weight:700;background:#f8f9fb}tbody tr:last-child td{border-bottom:0}.notice{margin-top:17px;padding:12px 14px;background:var(--greenbg);color:#185d3e;border-radius:10px;font-size:.87rem}.foot{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);color:var(--muted);font-size:.84rem}.links{display:flex;gap:15px;flex-wrap:wrap;margin-top:10px}a{color:var(--blue)}.hide{display:none!important}@media(max-width:900px){.scenarios{grid-template-columns:repeat(2,minmax(0,1fr))}.layout{grid-template-columns:1fr}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:520px){.wrap{padding:20px 12px 38px}.scenarios{grid-template-columns:1fr}.scenario{min-height:0}.twocol{grid-template-columns:1fr}.barrow{grid-template-columns:105px 1fr 48px;gap:7px}.panel{padding:15px}}
+</style>
+</head>
+<body><main class="wrap">
+<div class="head"><div class="eyebrow">Газпромбанк.Тех · Финтех.Наука</div><span class="pill">MVP · синтетические данные</span></div>
+<h1>Векторный скоринг M&amp;A-сделок</h1>
+<p class="lead">Интерактивная проверка математической модели: финансовая составляющая, векторная новизна, графовая синергия и экспоненциальный штраф за интеграционный риск. Выберите сценарий и посмотрите, как меняется рейтинг.</p>
+<div class="scenarios" role="group" aria-label="Выберите сценарий">
+<button class="scenario active" data-s="bolt" aria-pressed="true"><span class="n">СЦЕНАРИЙ 01</span><strong>Bolt-on: синергия</strong><small>Расширение клиентской базы и потенциал кросс-продаж.</small></button>
+<button class="scenario" data-s="venture" aria-pressed="false"><span class="n">СЦЕНАРИЙ 02</span><strong>Венчурная технология</strong><small>Приоритет новизны и технологического потенциала.</small></button>
+<button class="scenario" data-s="risk" aria-pressed="false"><span class="n">СЦЕНАРИЙ 03</span><strong>Интеграционный риск</strong><small>Проверка влияния сложной интеграции на балл.</small></button>
+<button class="scenario" data-s="dd" aria-pressed="false"><span class="n">СЦЕНАРИЙ 04</span><strong>Новое свидетельство DD</strong><small>Обновление вероятности конфликта после проверки Data Room.</small></button>
+</div>
+<div class="layout">
+<aside class="panel">
+<h2>Параметры расчёта</h2>
+<div class="field"><label for="deal">Цель M&amp;A</label><select id="deal"><option value="A">FinCore — платёжная платформа</option><option value="B">NovaAI — AI-платформа</option><option value="C">LegacyPay — процессинговый актив</option></select></div>
+<div class="field"><label for="alpha">α · вес новизны <output id="alphaOut">0.45</output></label><input id="alpha" type="range" min="0" max="1" step=".05" value=".45"></div>
+<div class="field"><label for="beta">β · вес синергии <output id="betaOut">0.55</output></label><input id="beta" type="range" min="0" max="1" step=".05" value=".55"></div>
+<div class="field"><label for="gamma">γ · штраф за риск <output id="gammaOut">1.8</output></label><input id="gamma" type="range" min="0" max="4" step=".1" value="1.8"></div>
+<div id="ddControls" class="field hide"><label for="evidence">Свидетельство Due Diligence</label><select id="evidence"><option value="it">Несовместимость критичной IT-системы</option><option value="license">Не подтверждена лицензия</option><option value="clear">Стоп-фактор не обнаружен</option></select><p class="hint">Свидетельство изменяет апостериорную вероятность конфликта по формуле Байеса.</p></div>
+<button class="btn" id="recalc">Пересчитать скоринг</button>
+<p class="hint">Все коэффициенты и входные значения в этой версии демонстрационные. Изменяйте параметры, чтобы исследовать поведение модели.</p>
+</aside>
+<section class="panel" aria-live="polite">
+<div class="eyebrow" id="scenarioEyebrow">СЦЕНАРИЙ 01</div><h2 id="scenarioTitle">Bolt-on: синергия</h2>
+<p class="hint" id="scenarioText">Повышаем относительный вес графовой синергии.</p>
+<div class="scoreline"><div><div class="hint">Итоговый скоринговый балл T</div><div class="scorebig" id="score">—</div></div><span id="status" class="status neutral">Расчёт</span></div>
+<div class="metrics">
+<div class="metric"><div class="label">Финансовый компонент</div><div class="value" id="financial">—</div><div class="sub">tanh(FCF/EV − WACC)</div></div>
+<div class="metric"><div class="label">Векторная близость N</div><div class="value" id="novelty">—</div><div class="sub">Функция расстояния</div></div>
+<div class="metric"><div class="label">Графовая синергия S</div><div class="value" id="synergy">—</div><div class="sub">Потенциал кросс-продаж</div></div>
+<div class="metric"><div class="label">Интеграционный риск R</div><div class="value" id="riskValue">—</div><div class="sub">Вероятность конфликта</div></div>
+</div>
+<h3>Из чего складывается результат</h3>
+<div class="barlist">
+<div class="barrow"><span>Новизна N</span><div class="track"><div class="fill" id="noveltyBar"></div></div><b id="noveltyBarText">—</b></div>
+<div class="barrow"><span>Синергия S</span><div class="track"><div class="fill" id="synergyBar"></div></div><b id="synergyBarText">—</b></div>
+<div class="barrow"><span>Множитель риска</span><div class="track"><div class="fill risk" id="riskBar"></div></div><b id="riskBarText">—</b></div>
+</div>
+<div id="ddPanel" class="twocol hide">
+<div class="subpanel"><div class="hint">Априорная вероятность конфликта</div><div class="posterior" id="prior">—</div></div>
+<div class="subpanel"><div class="hint">Апостериорная вероятность</div><div class="posterior" id="posterior">—</div><div class="hint" id="posteriorNote"></div></div>
+</div>
+<div class="notice"><b>Интерпретация:</b> <span id="interpretation">Результат зависит от выбранных параметров и синтетических входных данных.</span></div>
+<h3 style="margin-top:22px">Рейтинг синтетического портфеля</h3>
+<div class="tablewrap"><table><thead><tr><th>Цель</th><th>FCF/EV</th><th>Новизна</th><th>Синергия</th><th>Риск</th><th>Скоринг T</th></tr></thead><tbody id="portfolio"></tbody></table></div>
+</section>
+</div>
+<footer class="foot"><b>Ограничения.</b> Данные синтетические; это не инвестиционная рекомендация. Балл не является вероятностью успешного закрытия сделки. Графовая синергия задана вручную, а не вычислена по реальному графу клиентов и продуктов. Перед пилотом необходимы согласование целевой переменной, калибровка на исторических сделках и backtesting.
+<div class="links"><a href="README.md">README и запуск</a><a href="docs/model.md">Математическая модель</a><a href="docs/mvp.md">Спецификация MVP</a><a href="demo/app.py">Streamlit-приложение</a><a href="data/deals.json">Синтетические сделки</a></div>
+</footer>
+</main>
+<script>
+const deals={
+ A:{id:"TARGET-A",name:"FinCore — платёжная платформа",sector:"Финтех",desc:"Платёжная инфраструктура для корпоративных клиентов; API и расчётные сервисы.",fcf:.14,wacc:.11,d:.8,sigma:1.5,synergy:.86,risk:.24,alpha:.45,beta:.55,gamma:1.8},
+ B:{id:"TARGET-B",name:"NovaAI — AI-платформа",sector:"Искусственный интеллект",desc:"Технологическая платформа анализа документов и интеллектуальной автоматизации.",fcf:.025,wacc:.12,d:.45,sigma:1.4,synergy:.38,risk:.20,alpha:.8,beta:.2,gamma:1.2},
+ C:{id:"TARGET-C",name:"LegacyPay — процессинговый актив",sector:"Платежи",desc:"Зрелая процессинговая платформа с большой клиентской базой и сложным технологическим контуром.",fcf:.18,wacc:.12,d:1.1,sigma:1.3,synergy:.74,risk:.82,alpha:.3,beta:.7,gamma:2.2}
+};
+const scenarios={
+ bolt:{eyebrow:"СЦЕНАРИЙ 01",title:"Bolt-on: синергия",text:"Стратегия делает акцент на расширении клиентской базы и кросс-продажах.",deal:"A",a:.35,b:.65,g:1.8},
+ venture:{eyebrow:"СЦЕНАРИЙ 02",title:"Венчурная технология: новизна",text:"Повышаем α, чтобы увеличить относительный вклад векторного компонента.",deal:"B",a:.8,b:.2,g:1.2},
+ risk:{eyebrow:"СЦЕНАРИЙ 03",title:"Высокий интеграционный риск",text:"Проверяем, как высокий риск снижает стратегическую ценность через экспоненциальный множитель.",deal:"C",a:.3,b:.7,g:2.2},
+ dd:{eyebrow:"СЦЕНАРИЙ 04",title:"Due Diligence: новое свидетельство",text:"Новое свидетельство из Data Room обновляет вероятность конфликта и пересчитывает итоговый балл.",deal:"A",a:.45,b:.55,g:2}
+};
+const evidence={
+ it:{name:"Несовместимость критичной IT-системы",p:.25,se:.85,fp:.12,pos:true,desc:"В Data Room найден документированный конфликт интеграционных протоколов."},
+ license:{name:"Не подтверждена лицензия",p:.12,se:.92,fp:.04,pos:true,desc:"Документ не подтверждает наличие лицензии, обязательной для ключевого процесса."},
+ clear:{name:"Стоп-фактор не обнаружен",p:.30,se:.80,fp:.20,pos:false,desc:"Проверка не обнаружила заданный фактор; при заданных параметрах это снижает posterior risk."}
+};
+let current="bolt";
+const $=id=>document.getElementById(id);
+function clamp(x){return Math.max(0,Math.min(1,x))}
+function bayes(p,se,fp,pos){const n=pos?p*se:p*(1-se);const d=n+(1-p)*(pos?fp:1-fp);return d===0?p:n/d}
+function calc(d,a,b,g,r=d.risk){const f=Math.tanh(d.fcf-d.wacc);const n=Math.exp(-(d.d*d.d)/(2*d.sigma*d.sigma));const s=clamp(d.synergy);const mult=Math.exp(-g*clamp(r));return {f,n,s,r:clamp(r),mult,score:f*(a*n+b*s)*mult}}
+function fmt(x){return (x<0?"−":"")+Math.abs(x).toFixed(4)}
+function pct(x){return (x*100).toFixed(1)+"%"}
+function render(){
+ const cfg=scenarios[current],d=deals[$("deal").value],a=+$("alpha").value,b=+$("beta").value,g=+$("gamma").value;
+ $("alphaOut").textContent=a.toFixed(2);$("betaOut").textContent=b.toFixed(2);$("gammaOut").textContent=g.toFixed(1);
+ let risk=d.risk,prior=risk,post=risk,ev=null;
+ const isDD=current==="dd";$("ddControls").classList.toggle("hide",!isDD);$("ddPanel").classList.toggle("hide",!isDD);
+ if(isDD){ev=evidence[$("evidence").value];prior=ev.p;post=bayes(prior,ev.se,ev.fp,ev.pos);risk=post}
+ const r=calc(d,a,b,g,risk);
+ $("scenarioEyebrow").textContent=cfg.eyebrow;$("scenarioTitle").textContent=cfg.title;$("scenarioText").textContent=cfg.text;
+ $("score").textContent=fmt(r.score);$("financial").textContent=r.f.toFixed(3);$("novelty").textContent=r.n.toFixed(3);$("synergy").textContent=r.s.toFixed(3);$("riskValue").textContent=pct(r.r);
+ const st=$("status");st.className="status "+(r.score>0.02?"positive":r.score<0?"negative":"neutral");st.textContent=r.score>0.02?"Положительный модельный балл":r.score<0?"Отрицательный модельный балл":"Низкий / около нуля";
+ $("noveltyBar").style.width=pct(r.n);$("noveltyBarText").textContent=r.n.toFixed(2);$("synergyBar").style.width=pct(r.s);$("synergyBarText").textContent=r.s.toFixed(2);$("riskBar").style.width=pct(r.mult);$("riskBarText").textContent=r.mult.toFixed(2);
+ if(isDD){$("prior").textContent=pct(prior);$("posterior").textContent=pct(post);$("posteriorNote").textContent=(post>=prior?"Риск повысился":"Риск снизился")+" · "+ev.name;$("interpretation").textContent=ev.desc+" Модельный балл после обновления: "+fmt(r.score)+"."}
+ else if(current==="risk"){$("interpretation").textContent="При прочих равных высокий R уменьшает exp(−γR), поэтому интеграционный риск снижает итоговый балл."}
+ else if(current==="venture"){$("interpretation").textContent="Увеличение α усиливает векторный компонент, но не отменяет отрицательный финансовый компонент при заданных входных значениях."}
+ else{$("interpretation").textContent="Повышенный β увеличивает вклад графовой синергии; результат всё равно зависит от финансовой составляющей и интеграционного риска."}
+ const rows=Object.values(deals).map(x=>{const z=calc(x,a,b,g);return {...x,z}}).sort((x,y)=>y.z.score-x.z.score);
+ $("portfolio").innerHTML=rows.map(x=>'<tr><td><b>'+x.name+'</b><br><span class="hint">'+x.sector+'</span></td><td>'+x.fcf.toFixed(3)+'</td><td>'+x.z.n.toFixed(3)+'</td><td>'+x.z.s.toFixed(2)+'</td><td>'+pct(x.z.r)+'</td><td><b>'+fmt(x.z.score)+'</b></td></tr>').join("");
+}
+function choose(key){current=key;const c=scenarios[key];$("deal").value=c.deal;$("alpha").value=c.a;$("beta").value=c.b;$("gamma").value=c.g;document.querySelectorAll(".scenario").forEach(b=>{const active=b.dataset.s===key;b.classList.toggle("active",active);b.setAttribute("aria-pressed",String(active))});render()}
+document.querySelectorAll(".scenario").forEach(b=>b.addEventListener("click",()=>choose(b.dataset.s)));
+["deal","alpha","beta","gamma","evidence"].forEach(id=>$(id).addEventListener("input",render));
+$("recalc").addEventListener("click",render);choose("bolt");
+</script></body></html>
