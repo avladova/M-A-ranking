@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Интерактивная модель M&A: реальные параметры WACC, FCF и DCF для трёх бизнес-проектов.">
+<meta name="description" content="Интерактивная модель M&A: реальные параметры WACC, FCF и DCF для четырёх бизнес-проектов.">
 <title>M&A Vector Scoring — интерактивный MVP</title>
 <style>
 :root{--bg:#f4f6fa;--paper:#fff;--ink:#182235;--muted:#667287;--line:#dce3ed;--blue:#2457a6;--bluebg:#eaf1ff;--green:#176b48;--greenbg:#e8f5ee;--amber:#8b5b0b;--amberbg:#fff3d9;--red:#9f3434;--redbg:#fff0ef}
@@ -12,7 +12,7 @@
 <body><main class="wrap">
 <div class="head"><div class="eyebrow">Газпромбанк.Тех · Финтех.Наука</div><span class="pill">MVP · параметры из исходного файла</span></div>
 <h1>Векторный скоринг M&amp;A-сделок</h1>
-<p class="lead">Интерактивная проверка модели на трёх реальных бизнес-кейсах из исходного файла. Выберите проект, изменяйте WACC, FCF и DCF, а также стратегические коэффициенты α, β и γ. Все денежные значения вводятся в млн руб.</p>
+<p class="lead">Интерактивная проверка модели на четырёх бизнес-кейсах, включая добавленный проект кондитерского производства. Выберите проект, изменяйте WACC, FCF и DCF, а также стратегические коэффициенты α, β и γ. Все денежные значения вводятся в млн руб.</p>
 <div class="scenarios" role="group" aria-label="Выберите сценарий">
 <button class="scenario active" data-s="bolt" aria-pressed="true"><span class="n">СЦЕНАРИЙ 01</span><strong>Bolt-on: синергия</strong><small>Расширение клиентской базы и потенциал кросс-продаж.</small></button>
 <button class="scenario" data-s="venture" aria-pressed="false"><span class="n">СЦЕНАРИЙ 02</span><strong>Венчурная технология</strong><small>Приоритет новизны и технологического потенциала.</small></button>
@@ -22,7 +22,7 @@
 <div class="layout">
 <aside class="panel">
 <h2>Параметры расчёта</h2>
-<div class="field"><label for="deal">Цель M&amp;A</label><select id="deal"><option value="A">FinCore — платёжная платформа</option><option value="B">NovaAI — AI-платформа</option><option value="C">LegacyPay — процессинговый актив</option></select></div>
+<div class="field"><label for="deal">Цель M&amp;A</label><select id="deal"><option value="A">FinCore — платёжная платформа</option><option value="B">NovaAI — AI-платформа</option><option value="C">LegacyPay — процессинговый актив</option><option value="D">Кондитерская</option></select></div>
 <div class="field"><label for="wacc">WACC, % <output id="waccOut">—</output></label><input id="wacc" type="number" min="0" max="100" step="0.1" value="21.1"></div>
 <div class="field"><label for="fcf">FCF / FCFF, млн руб. <output id="fcfOut">—</output></label><input id="fcf" type="number" step="0.1" value="50.2"></div>
 <div class="field"><label for="dcf">DCF, млн руб. <output id="dcfOut">—</output></label><input id="dcf" type="number" step="0.1" value="270"><p class="hint" id="dcfNote">DCF — оценка стоимости по дисконтированным денежным потокам.</p></div>
@@ -58,7 +58,7 @@
 <div class="tablewrap"><table><thead><tr><th>Цель</th><th>WACC</th><th>FCF, млн</th><th>DCF, млн</th><th>Финансы</th><th>Новизна</th><th>Синергия</th><th>Риск</th><th>Скоринг T</th></tr></thead><tbody id="portfolio"></tbody></table></div>
 </section>
 </div>
-<footer class="foot"><b>Ограничения.</b> WACC, FCF/FCFF и DCF перенесены из предоставленного исходного файла; точное отрицательное значение DCF логистического проекта не указано. Новизна, графовая синергия и интеграционный риск по-прежнему демонстрационные. При DCF ≤ 0 финансовый компонент по формуле FCF/DCF не рассчитывается. Скоринговый балл не является вероятностью успеха сделки; перед использованием нужны проверка данных, калибровка и backtesting.
+<footer class="foot"><b>Ограничения.</b> WACC, FCF/FCFF и DCF по первым трём проектам перенесены из предоставленного исходного файла; параметры кондитерской добавлены по уточнению пользователя; точное отрицательное значение DCF логистического проекта не указано. Новизна, графовая синергия и интеграционный риск по-прежнему демонстрационные. При DCF ≤ 0 финансовый компонент по формуле FCF/DCF не рассчитывается. Скоринговый балл не является вероятностью успеха сделки; перед использованием нужны проверка данных, калибровка и backtesting.
 <div class="links"><a href="README.md">README и запуск</a><a href="docs/model.md">Математическая модель</a><a href="docs/mvp.md">Спецификация MVP</a><a href="demo/app.py">Streamlit-приложение</a><a href="data/deals.json">Синтетические сделки</a></div>
 </footer>
 </main>
@@ -66,7 +66,8 @@
 const deals={
  A:{id:"PROJECT-IT-SERVICE",name:"IT-сервис (работает как сайт)",sector:"IT-сервис",desc:"FCF 50,2 млн руб.; DCF 270 млн руб.; мультипликаторная оценка 400 млн руб.",fcfMln:50.2,waccPct:21.1,dcfMln:270,d:.8,sigma:1.5,synergy:.70,risk:.30,alpha:.45,beta:.55,gamma:1.8,valuationNote:"Мультипликаторная оценка — 400 млн руб.; DCF — 270 млн руб."},
  B:{id:"PROJECT-IT-DISTRIBUTOR",name:"IT-дистрибьютор",sector:"IT-дистрибуция",desc:"FCF 0; DCF 15 млн руб.; запрос продавца 150 млн руб.",fcfMln:0,waccPct:28.2,dcfMln:15,d:.45,sigma:1.4,synergy:.35,risk:.65,alpha:.8,beta:.2,gamma:1.2,valuationNote:"Запрос продавца — 150 млн руб.; DCF — 15 млн руб."},
- C:{id:"PROJECT-LOGISTICS",name:"Логистика",sector:"Логистика",desc:"FCFF −171 млн руб.; DCF отрицательный (точная сумма не указана); мультипликаторная оценка 4,5 млрд руб.; долг около 4 млрд руб.",fcfMln:-171,waccPct:19.8,dcfMln:null,d:.1,sigma:1.3,synergy:.55,risk:.85,alpha:.3,beta:.7,gamma:2.2,valuationNote:"DCF отрицательный, точная сумма не указана. Мультипликаторная оценка — 4,5 млрд руб.; долг — около 4 млрд руб."}
+ C:{id:"PROJECT-LOGISTICS",name:"Логистика",sector:"Логистика",desc:"FCFF −171 млн руб.; DCF отрицательный (точная сумма не указана); мультипликаторная оценка 4,5 млрд руб.; долг около 4 млрд руб.",fcfMln:-171,waccPct:19.8,dcfMln:null,d:.1,sigma:1.3,synergy:.55,risk:.85,alpha:.3,beta:.7,gamma:2.2,valuationNote:"DCF отрицательный, точная сумма не указана. Мультипликаторная оценка — 4,5 млрд руб.; долг — около 4 млрд руб."},
+ D:{id:"PROJECT-CONFECTIONERY",name:"Кондитерская",sector:"Кондитерское производство",desc:"Стоимость (DCF) — 1 116 млн руб.; WACC — 19%; FCF — 112 млн руб.",fcfMln:112,waccPct:19,dcfMln:1116,d:.7,sigma:1.4,synergy:.6,risk:.3,alpha:.45,beta:.55,gamma:1.8,valuationNote:"Стоимость трактуется как DCF — 1 116 млн руб. Новизна, синергия и риск — демонстрационные параметры."}
 };
 const scenarios={
  bolt:{eyebrow:"СЦЕНАРИЙ 01",title:"Bolt-on: синергия",text:"Стратегия делает акцент на расширении клиентской базы и кросс-продажах.",deal:"A",a:.35,b:.65,g:1.8},
