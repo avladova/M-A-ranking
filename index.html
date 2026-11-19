@@ -104,8 +104,8 @@ function render(){
  if(isDD){$("prior").textContent=pct(prior);$("posterior").textContent=pct(post);$("posteriorNote").textContent=(post>=prior?"Риск повысился":"Риск снизился")+" · "+ev.name;$("interpretation").textContent=ev.desc+" Модельный балл после обновления: "+fmt(r.score)+"."}
  else if(r.score===null){$("interpretation").textContent="Для выбранного проекта DCF не задан или не положителен. При DCF ≤ 0 отношение FCF/DCF не используется: финансовый компонент и итоговый скоринговый балл не рассчитываются. Укажите корректную положительную оценку DCF, если она доступна."}
  else if(current==="risk"){$("interpretation").textContent="При прочих равных высокий R уменьшает exp(−γR), поэтому интеграционный риск снижает итоговый балл."}
- else if(current==="venture"){$("interpretation").textContent="Увеличение α усиливает векторный компонент. Финансовая часть рассчитывается как tanh(FCF/DCF − WACC)."}
- else{$("interpretation").textContent="Изменение β усиливает вклад графовой синергии; финансовая часть рассчитывается как tanh(FCF/DCF − WACC). "+d.valuationNote}
+ else if(current==="venture"){$("interpretation").textContent="Увеличение α усиливает векторный компонент "}
+ else{$("interpretation").textContent="Изменение β усиливает вклад графовой синергии "+d.valuationNote}
  const rows=Object.values(deals).map(x=>{const z=calc(x,a,b,g);return {...x,z}}).sort((x,y)=>(y.z.score??-Infinity)-(x.z.score??-Infinity));
  $("portfolio").innerHTML=rows.map(x=>'<tr><td><b>'+x.name+'</b><br><span class="hint">'+x.sector+'</span></td><td>'+x.waccPct.toFixed(1)+'%</td><td>'+x.fcfMln.toFixed(1)+'</td><td>'+(x.dcfMln===null?"отрицательный / нет значения":x.dcfMln.toFixed(1))+'</td><td>'+fmt(x.z.f)+'</td><td>'+x.z.n.toFixed(3)+'</td><td>'+x.z.s.toFixed(2)+'</td><td>'+pct(x.z.r)+'</td><td><b>'+fmt(x.z.score)+'</b></td></tr>').join("");
 }
