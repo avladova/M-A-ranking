@@ -38,7 +38,7 @@
 <p class="hint" id="scenarioText">Повышаем относительный вес графовой синергии.</p>
 <div class="scoreline"><div><div class="hint">Итоговый скоринговый балл T</div><div class="scorebig" id="score">—</div></div><span id="status" class="status neutral">Расчёт</span></div>
 <div class="metrics">
-<div class="metric"><div class="label">Финансовый компонент</div><div class="value" id="financial">—</div><div class="sub">tanh(FCF/DCF − WACC)</div></div>
+<div class="metric"><div class="label">Финансовый компонент</div><div class="value" id="financial">—</div><div class="sub">Дисконтирование денежных потоков</div></div>
 <div class="metric"><div class="label">Векторная близость N</div><div class="value" id="novelty">—</div><div class="sub">Функция расстояния</div></div>
 <div class="metric"><div class="label">Графовая синергия S</div><div class="value" id="synergy">—</div><div class="sub">Потенциал кросс-продаж</div></div>
 <div class="metric"><div class="label">Интеграционный риск R</div><div class="value" id="riskValue">—</div><div class="sub">Вероятность конфликта</div></div>
@@ -53,8 +53,8 @@
 <div class="subpanel"><div class="hint">Априорная вероятность конфликта</div><div class="posterior" id="prior">—</div></div>
 <div class="subpanel"><div class="hint">Апостериорная вероятность</div><div class="posterior" id="posterior">—</div><div class="hint" id="posteriorNote"></div></div>
 </div>
-<div class="notice"><b>Интерпретация:</b> <span id="interpretation">Результат зависит от выбранных параметров и синтетических входных данных.</span></div>
-<h3 style="margin-top:22px">Рейтинг синтетического портфеля</h3>
+<div class="notice"><b>Интерпретация:</b> <span id="interpretation">Результат зависит от выбранных параметров и входных данных.</span></div>
+<h3 style="margin-top:22px">Рейтинг портфеля</h3>
 <div class="tablewrap"><table><thead><tr><th>Цель</th><th>WACC</th><th>FCF, млн</th><th>DCF, млн</th><th>Финансы</th><th>Новизна</th><th>Синергия</th><th>Риск</th><th>Скоринг T</th></tr></thead><tbody id="portfolio"></tbody></table></div>
 </section>
 </div>
